@@ -50,4 +50,9 @@
     <string name="image_search_edit_filters_site">Site Filter</string>
     <string name="image_search_edit_filters_save">Save</string>
     <string name="image_search_edit_filters_cancel">Cancel</string>
+
+    <!-- view image -->
+    <string name="image_view_share_image">Share image</string>
+    <string name="image_view_share_image_title">Share image using...</string>
+    <string name="image_view_share_image_error">Unable to share the image!</string>
 </resources>
