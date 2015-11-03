@@ -43,7 +43,7 @@ public class SearchActivity extends AppCompatActivity {
     /**
      * The maximum images we can search for.
      */
-    private static final int MAX_IMAGE_COUNT = 64;
+    private static final int MAX_QUERY_OFFSET = 56;
 
     private ImageSearchClient  imageSearchClient;
     private ImageQuery         searchQuery;
@@ -66,7 +66,7 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onLoadMore(final int page, final int totalItemsCount) {
                 // Guard against this being invoked when it shouldn't be, as the current
                 // EndlessScrollListener fires this method when it shouldn't.
-                if (searchQuery.offset >= totalItemsCount || searchQuery.offset >= MAX_IMAGE_COUNT) {
+                if (searchQuery.offset >= totalItemsCount || searchQuery.offset >= MAX_QUERY_OFFSET) {
                     return false;
                 }
 
