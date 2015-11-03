@@ -35,10 +35,9 @@ public class ViewActivity extends AppCompatActivity {
 
         Picasso.with(this)
                 .load(Uri.parse(imageResult.imageUrl))
-                .placeholder(R.drawable.ic_image_black_48dp)
+                .placeholder(R.drawable.loading)
                 .error(R.drawable.ic_broken_image_black_48dp)
                 .into(imageView);
-
     }
 
     @Override

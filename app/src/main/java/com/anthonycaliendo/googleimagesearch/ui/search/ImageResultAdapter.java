@@ -49,7 +49,7 @@ class ImageResultAdapter extends ArrayAdapter<ImageResult> {
 
         Picasso.with(getContext())
                 .load(Uri.parse(item.previewImageUrl))
-                .placeholder(R.drawable.ic_image_black_24dp)
+                .placeholder(R.drawable.loading)
                 .error(R.drawable.ic_broken_image_black_24dp)
                 .into(viewHolder.previewImage);
 
