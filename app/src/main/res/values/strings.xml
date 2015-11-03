@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Google Image Search</string>
+
+    <!-- image search -->
+    <string name="image_search_network_unreachable">Unable to reach the internet.  Please check your network settings.</string>
+    <string name="image_search_network_error_dialog_title">Unable to connect</string>
+    <string name="image_search_network_error_dialog_message">Cannot reach Google\'s servers.  Please try again later.</string>
+    <string name="image_search_network_error_dialog_confirm">Bummer</string>
+    <string name="image_search_filters">Filters</string>
+    <string name="image_search_instructions">Enter your search query above</string>
+
+    <!-- edit filters -->
+    <string name="image_search_edit_filters_title">Advanced Search Options</string>
+
+    <string name="image_search_edit_filters_size">Image Size</string>
+    <string-array name="image_sizes">
+        <item>any</item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>extraLarge</item>
+    </string-array>
+
+    <string name="image_search_edit_filters_color">Color Filter</string>
+    <string-array name="image_colors">
+        <item>any</item>
+        <item>black</item>
+        <item>blue</item>
+        <item>brown</item>
+        <item>gray</item>
+        <item>green</item>
+        <item>orange</item>
+        <item>pink</item>
+        <item>purple</item>
+        <item>red</item>
+        <item>teal</item>
+        <item>white</item>
+        <item>yellow</item>
+    </string-array>
+
+    <string name="image_search_edit_filters_type">Image Type</string>
+    <string-array name="image_types">
+        <item>any</item>
+        <item>face</item>
+        <item>photo</item>
+        <item>clipart</item>
+        <item>lineart</item>
+    </string-array>
+
+    <string name="image_search_edit_filters_site">Site Filter</string>
+    <string name="image_search_edit_filters_save">Save</string>
+    <string name="image_search_edit_filters_cancel">Cancel</string>
+</resources>
