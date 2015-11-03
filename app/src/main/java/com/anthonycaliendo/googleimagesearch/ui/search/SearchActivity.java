@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -69,21 +70,9 @@ public class SearchActivity extends AppCompatActivity {
                     return false;
                 }
 
-                searchQuery.offset = totalItemsCount;
-
                 debug(this, "handler=onScrollListener page=" + page + " totalItemsCount=" + totalItemsCount);
-
-                imageSearchClient.searchImages(searchQuery, new ImageSearchClient.ResponseHandler() {
-                    @Override
-                    public void onSuccess(final List<ImageResult> images) {
-                        imageResultAdapter.addAll(images);
-                    }
-
-                    @Override
-                    public void onFail() {
-                        notifyNetworkIssue();
-                    }
-                });
+                searchQuery.offset = totalItemsCount;
+                executeSearch(false);
 
                 return false;
             }
@@ -113,15 +102,12 @@ public class SearchActivity extends AppCompatActivity {
 
         final MenuItem searchItem   = menu.findItem(R.id.image_search_query);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        final View instructions     = findViewById(R.id.image_search_instructions);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
                 searchQuery.query = query;
-                instructions.setVisibility(View.INVISIBLE);
-
-                freshSearch();
+                executeSearch(true);
                 return true;
             }
 
@@ -134,23 +120,6 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
-    private void freshSearch() {
-        searchQuery.offset = 0;
-
-        imageSearchClient.searchImages(searchQuery, new ImageSearchClient.ResponseHandler() {
-            @Override
-            public void onSuccess(final List<ImageResult> images) {
-                imageResultAdapter.clear();
-                imageResultAdapter.addAll(images);
-            }
-
-            @Override
-            public void onFail() {
-                notifyNetworkIssue();
-            }
-        });
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -161,6 +130,41 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Executes a search, and populates the results. If this is a fresh search, then existing results
+     * are removed and pagination is reset.
+     * @param freshSearch
+     *      indicates if this search should be treated as a fresh search
+     */
+    private void executeSearch(final boolean freshSearch) {
+        final View instructions = findViewById(R.id.image_search_instructions);
+        instructions.setVisibility(View.INVISIBLE);
+
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.image_search_progress_bar);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+
+        if (freshSearch) {
+            searchQuery.offset = 0;
+        }
+
+        imageSearchClient.searchImages(searchQuery, new ImageSearchClient.ResponseHandler() {
+            @Override
+            public void onSuccess(final List<ImageResult> images) {
+                if (freshSearch) {
+                    imageResultAdapter.clear();
+                }
+                imageResultAdapter.addAll(images);
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
+            }
+
+            @Override
+            public void onFail() {
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
+                notifyNetworkIssue();
+            }
+        });
     }
 
     /**
@@ -189,7 +193,7 @@ public class SearchActivity extends AppCompatActivity {
                         searchQuery.type = (ImageQuery.Type) convertSelectionPositionToEnum(typeSpinner.getSelectedItemPosition(), ImageQuery.Type.values());
 
                         dialog.dismiss();
-                        freshSearch();
+                        executeSearch(true);
                     }
                 })
                 .negativeText(R.string.image_search_edit_filters_cancel)

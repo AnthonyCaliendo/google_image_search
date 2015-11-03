@@ -13,6 +13,14 @@
     tools:showIn="@layout/activity_search"
     tools:context=".SearchActivity">
 
+    <ProgressBar
+        android:id="@+id/image_search_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        style="@android:style/Widget.ProgressBar.Large.Inverse"
+        android:indeterminate="true"/>
+
     <TextView
         android:id="@+id/image_search_network_error"
         android:text="@string/image_search_network_unreachable"

@@ -34,6 +34,7 @@ The following **bonus** features are implemented:
 
 The following **additional** features are implemented:
 
+* [x] displays progress spinner when loading search results, including on infinite scroll
 * [x] checks network state ahead of time and displays user friendly message
 * [x] displays dialog notification on network error
 * [x] uses placeholder images for errors and non-loading
