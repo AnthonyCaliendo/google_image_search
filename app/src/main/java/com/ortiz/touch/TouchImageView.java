@@ -716,9 +716,33 @@ public class TouchImageView extends ImageView {
         }
     }
 
+    // BEGIN - ZOOMING LISTENER
+    public interface ZoomingListener {
+        void onZoomIn();
+        void onZoomOut();
+    }
+
+    protected ZoomingListener zoomingListener;
+
+    public void setOnZoomingListener(ZoomingListener zoomingListener) {
+        this.zoomingListener = zoomingListener;
+    }
+
     private void setState(final State state) {
+        Log.d("zooming", "oldState=" + this.state + " newState=" + state + " isZoomed=" + Boolean.toString(isZoomed()));
+        if (zoomingListener != null) {
+            if (state == State.NONE && !isZoomed()) {
+                zoomingListener.onZoomOut();
+                Log.d("zooming", "onZoomOut");
+            } else if (state == State.ANIMATE_ZOOM || isZoomed()) {
+                zoomingListener.onZoomIn();
+                Log.d("zooming", "onZoomIn");
+            }
+        }
         this.state = state;
     }
+
+    // END - ZOOMING LISTENER
 
     public boolean canScrollHorizontallyFroyo(int direction) {
         return canScrollHorizontally(direction);

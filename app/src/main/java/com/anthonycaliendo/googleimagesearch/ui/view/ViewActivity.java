@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.anthonycaliendo.googleimagesearch.ImageResult;
@@ -52,6 +53,24 @@ public class ViewActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.ic_broken_image_black_48dp)
                 .into(imageView);
+
+        final View decorView = getWindow().getDecorView();
+        imageView.setOnZoomingListener(new TouchImageView.ZoomingListener() {
+            @Override
+            public void onZoomIn() {
+                final int visibility = decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                decorView.setSystemUiVisibility(visibility);
+                actionBar.hide();
+            }
+
+            @Override
+            public void onZoomOut() {
+                final int visibility = decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_FULLSCREEN;
+                decorView.setSystemUiVisibility(visibility);
+                actionBar.show();
+            }
+        });
+
     }
 
     @Override

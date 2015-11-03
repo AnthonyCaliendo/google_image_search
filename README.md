@@ -39,6 +39,7 @@ The following **additional** features are implemented:
 * [x] displays dialog notification on network error
 * [x] uses placeholder images for errors and non-loading
 * [x] shows instructions for how to use the app, and then hides it when the user searches
+* [x] hides the status and action bar when zooming on the image (i.e. goes full screen)
 
 ## Video Walkthrough 
 
