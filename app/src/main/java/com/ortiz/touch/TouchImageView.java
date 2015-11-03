@@ -716,32 +716,9 @@ public class TouchImageView extends ImageView {
         }
     }
 
-    // BEGIN - state change listener
-    // Ideally, we could override setState but it is private instead of protected.
-
-    public interface OnStateChangeListener {
-        void onStateChange();
-    }
-
-    protected OnStateChangeListener stateChangeListener;
-
-    public OnStateChangeListener getStateChangeListener() {
-        return stateChangeListener;
-    }
-
-    public void setStateChangeListener(OnStateChangeListener stateChangeListener) {
-        this.stateChangeListener = stateChangeListener;
-    }
-
     private void setState(final State state) {
-        Log.d("statechange", "oldState=" + this.state + " newState=" + state + " isZoomed=" + Boolean.toString(isZoomed()));
-        if (getStateChangeListener() != null && this.state != state) {
-            getStateChangeListener().onStateChange();
-        }
         this.state = state;
     }
-
-    // END - state change listener
 
     public boolean canScrollHorizontallyFroyo(int direction) {
         return canScrollHorizontally(direction);
