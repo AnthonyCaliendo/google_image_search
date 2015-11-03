@@ -144,6 +144,7 @@ public class SearchActivity extends AppCompatActivity {
 
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.image_search_progress_bar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
+        progressBar.bringToFront();
 
         if (freshSearch) {
             searchQuery.offset = 0;
